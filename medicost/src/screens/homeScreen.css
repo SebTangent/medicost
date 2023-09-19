@@ -46,6 +46,17 @@
     height: 570px;
     margin-left: 535px;
   }
+
+  .serviceImg{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 220px;
+    border-radius:20px;
+    height: 360px;
+    z-index: 0;
+
+  }
   
   .homeBody1description {
     position: absolute;
@@ -58,17 +69,32 @@
     margin-left: 65px;
   }
   
-  /* Unified Services Styles */
   .homeScreenServices {
+
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: flex-start; /* or use space-evenly based on your design needs */
     align-items: flex-start;
-    margin-top: 50px;
+    margin-top: 30px;
+    margin-left: -40px; /* Adjust as needed */
+    padding-left: 0; /* Adjust as needed */
   }
   
-  .compPrice, .locations, .CostEstimator {
+.serviceDes{
+  position: absolute;
+  opacity: 1;
+  margin-top: -100px;
+  background-color: rgb(251, 251, 251);
+  margin-left: 880px;
+  padding :80px;
+  width: 180px;
+  border-radius: 20px;
+
+}
+  
+  .compPrice, .locations, .costEst{
+    margin-right: 80px;
     border-radius: 20px;
     padding: 60px;
     height: 290px;
@@ -94,11 +120,18 @@
     cursor: pointer;
     background-color: black;
     color: white;
+    font-weight: 400;
     border-radius: 30px;
     border: none;
     padding: 15px;
     width: 200px;
   }
+
+  .compButton:hover, .locationButton:hover, .CostEstButton:hover{
+    background-color: rgb(71, 70, 70);
+    transition: .4s;
+  }
+
   
   @media (max-width: 768px) {
     .homeScreenImage {

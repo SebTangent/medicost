@@ -6,6 +6,7 @@ import homeBodyImg from "../images/homeBody1.jpg"
 import costpic from "../images/costest.jpg"
 import pricecomp from "../images/priceComp.jpg"
 import mappic from "../images/maps.jpg"
+import service from "../images/services.jpg"
 
 function homeScreen() {
   return (
@@ -42,6 +43,23 @@ function homeScreen() {
               <h5>• Personalized Cost Planning: Plan ahead and estimate your healthcare expenses by accessing cost breakdowns, identifying potential savings, and understanding the financial implications of different procedures. 💵</h5>
               </ul>
               </div>
+            </div>
+
+            <div className = "serviceTitle">
+
+            <img
+              className ="serviceImg"
+              src = {service}
+              alt = ""
+            />
+
+            <div className = "serviceDes">
+                <h2>Services</h2>
+                <ul>
+                <h5> Read Below for a preview of our services </h5>
+                <h3>🔽</h3>
+                </ul>
+            </div>
             </div>
 
             <div className = "homeScreenServices">
