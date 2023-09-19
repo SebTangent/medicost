@@ -1,5 +1,6 @@
 import React from 'react';
 import "./homeScreen.css";
+import { Link } from 'react-router-dom';
 import Nav from "../nav.js"
 import homeScreenImg from "../images/homeScreen.jpg"
 import homeBodyImg from "../images/homeBody1.jpg"
@@ -72,10 +73,11 @@ function homeScreen() {
               <h5>SERVICES</h5>
               <h1>Cost Estimator</h1>
               <h5 className ="costDesciption">Our Cost Estimator feature allows you to easily access comprehensive cost ranges and averages for various medical procedures based on procedure type and location. You can plan ahead and estimate your healthcare expenses, making informed decisions about your medical treatments.</h5>
+              <Link to = "/CostEstimator">
               <button className = "CostEstButton"> 
               Cost Estimator →
               </button>
-
+              </Link>
                 </div>
               </div>
               <div className="compPrice">
