@@ -1,0 +1,111 @@
+.homeScreenWrapper {
+    position: relative;
+  }
+  
+  .homeScreenImage {
+    margin-top: 125px;
+    margin-left: 65px;
+    padding-bottom: 200px;
+    height: 570px;
+    border-radius: 20px;
+    z-index: 0;
+  }
+  
+  .homeScreenDescription {
+    position: absolute;
+    opacity: 1;
+    padding: 80px;
+    border-radius: 40px;
+    background-color: rgb(251, 251, 251);
+    top: 175px;
+    margin-left: 750px;
+  }
+  
+  .des {
+    font-size: 12px;
+    padding-bottom: 14px;
+  }
+  
+  .homeScreenDescription > button {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    padding: 15px;
+    width: 200px;
+  }
+  
+  .homeScreenDescription > button:hover {
+    background-color: rgb(71, 70, 70);
+    transition: .4s;
+  }
+  
+  .homeBodyImg1 {
+    border-radius: 20px;
+    height: 570px;
+    margin-left: 535px;
+  }
+  
+  .homeBody1description {
+    position: absolute;
+    opacity: 1;
+    background-color: rgb(251, 251, 251);
+    padding: 70px;
+    width: 400px;
+    border-radius: 40px;
+    top: 920px;
+    margin-left: 65px;
+  }
+  
+  /* Unified Services Styles */
+  .homeScreenServices {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-top: 50px;
+  }
+  
+  .compPrice, .locations, .CostEstimator {
+    border-radius: 20px;
+    padding: 60px;
+    height: 290px;
+    width: 290px;
+  }
+  
+  .comPrice__desc, .location__desc, .CostDesc {
+    border-radius: 20px;
+    padding: 60px;
+    background-color: rgb(251, 251, 251);
+    height: 290px;
+    width: 290px;
+  }
+  
+  .Pricecomp, .maps-pic, .CostEstimator {
+    margin-top: 300px;
+    height: 430px;
+    border-radius: 20px;
+    margin-left: 65px;
+  }
+  
+  .compButton, .locationButton, .CostEstButton {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    padding: 15px;
+    width: 200px;
+  }
+  
+  @media (max-width: 768px) {
+    .homeScreenImage {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
+  }
+  

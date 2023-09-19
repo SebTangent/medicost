@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./nav.css";
+import logo from "./logo1.png"
 
 function Nav() {
   const [showSideNav, setShowSideNav] = useState(false);
@@ -13,13 +14,18 @@ function Nav() {
       <div className="nav_background">
         <div className="navContents">
           <div className="navIcon" onClick={toggleSideNav}>
-            <h1>MEDICOST</h1>
+            <img 
+              className = "navLogo"
+              src = {logo}
+              alt =" "
+            />
           </div>
           <div className={`nav__links ${showSideNav ? 'show' : ''}`}>
             <a href="#">Cost Estimator</a>
             <a href="#">Find Location</a>
             <a href="#">Compare Prices</a>
-            <a href="#">My Account</a>
+            <a href="#">About Us</a>
+
           </div>
         </div>
       </div>
