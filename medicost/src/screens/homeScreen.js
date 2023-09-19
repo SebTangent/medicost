@@ -57,7 +57,7 @@ function homeScreen() {
                 <h2>Services</h2>
                 <ul>
                 <h5> Read Below for a preview of our services </h5>
-                <h3>🔽</h3>
+                <h1 className ="arrow">⤵</h1>
                 </ul>
             </div>
             </div>

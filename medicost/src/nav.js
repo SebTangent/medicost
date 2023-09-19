@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import "./nav.css";
 import logo from "./logo1.png"
 
@@ -14,16 +15,19 @@ function Nav() {
       <div className="nav_background">
         <div className="navContents">
           <div className="navIcon" onClick={toggleSideNav}>
+          <Link to = "/">
             <img 
               className = "navLogo"
               src = {logo}
               alt =" "
             />
+            </Link>
           </div>
           <div className={`nav__links ${showSideNav ? 'show' : ''}`}>
-            <a href="#">Cost Estimator</a>
-            <a href="#">Find Location</a>
+
+            <Link to = "/CostEstimator">Cost Estimator</Link>
             <a href="#">Compare Prices</a>
+            <a href="#">Find Location</a>
             <a href="#">About Us</a>
 
           </div>

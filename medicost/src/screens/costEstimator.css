@@ -1,0 +1,116 @@
+.bannerPic{
+    margin-top: 125px;
+    margin-left: 65px;
+    padding-bottom: 200px;
+    height: 570px;
+    border-radius: 20px;
+    z-index: 0;
+}
+
+.bannerDescription{
+    position: absolute;
+    opacity: 1;
+    padding: 80px;
+    border-radius: 40px;
+    background-color: rgb(251, 251, 251);
+    top: 175px;
+    margin-left: 750px;
+}
+
+.searchBarWrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;  /* Change from row to column */
+    align-items: center;  /* Center the items horizontally */
+    margin-bottom: 20px;
+
+
+    opacity: 1;
+    width:425px;
+    padding: 80px;
+    margin-top: 75px;
+    border-radius: 40px;
+    background-color: rgb(251, 251, 251);
+  }
+  
+  .searchTitle {
+    
+    margin-bottom: 10px;  /* Add some space between the title and the search bar */
+}
+
+  .searchBar {
+    width: 60%;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 20px;
+    border-radius: 50px;
+    border: 2px solid #000000;
+  }
+
+  .searchImg{
+    border-radius: 20px;
+   
+    height: 570px;
+    margin-left: 535px;
+  }
+  
+
+.button-desc {
+    text-align: center;
+    margin-bottom: 20px;  /* Add some space between the description and the buttons */
+    padding: 10px;  /* Adjust as needed */
+}
+
+
+.Row1, .Row2, .Row3, .Row4 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.gridButton {
+    background-color: rgb(251, 251, 251);  /* To match existing background color */
+    border: 2px solid #000000;  /* To match existing border */
+    border-radius: 40px;  /* To match existing border-radius */
+    color: #000000;  /* Text color */
+    font-size: 14px;  /* Font size */
+    padding: 10px 20px;  /* Padding for medium-sized buttons */
+    margin: 5px;  /* Space between buttons */
+    cursor: pointer;  /* Hand cursor on hover */
+}
+
+.rows_buttons {
+    display: flex;
+    position:absolute;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 300px;
+    opacity: 1;
+    background-color: rgb(251, 251, 251);  /* Same as banner and search bar */
+    padding: 50px;  /* Adjust as needed */
+    border-radius: 40px;  
+    width: 38%;  
+    margin-left: 830px;
+    z-index: 1;
+
+}
+
+.buttonImage{
+    margin-top: 180px;
+    margin-left: 65px;
+    padding-bottom: 200px;
+    height: 570px;
+    border-radius: 20px;
+    z-index: 0;
+}
+
+.button-desc{
+    text-align: center;
+}
+
+.gridButton:hover{
+    background-color: rgb(231, 231, 231);
+    transition: .4s;
+}
+
