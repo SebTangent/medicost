@@ -85,14 +85,14 @@
     position:absolute;
     flex-direction: column;
     align-items: center;
-    margin-top: 300px;
+    margin-top: 170px;
     opacity: 1;
     background-color: rgb(251, 251, 251);  /* Same as banner and search bar */
     padding: 50px;  /* Adjust as needed */
     border-radius: 40px;  
     width: 38%;  
-    margin-left: 830px;
-    z-index: 1;
+    margin-left: 800px;
+   
 
 }
 
