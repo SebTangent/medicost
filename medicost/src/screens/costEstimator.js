@@ -76,6 +76,8 @@ function CostEstimator() {
     const [selectedTreatment, setSelectedTreatment] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+    const [averageResult, setAverageResult] = useState(0); // to store the calculated average
+ 
 
     
     const stateNameToCode = {
@@ -142,17 +144,29 @@ function CostEstimator() {
             validStateNames.map(name => normalizeInput(name)).includes(normalizedInput);
     };
 
-    function handleConfirm(){
+    async function handleConfirm() {
         if (isStateValid(stateCode)) {
-            // State code or name is valid, proceed with the rest of the logic
-            // You can add code to filter data based on state or whatever else you need
-            filterDataBasedOnState(stateCode);
+          try {
+            const averages = await filterDataBasedOnState(stateCode); // Wait for the averages
+            
+            const avgMedicarePriceNew = (averages['min_medicare_pricing_for_new_patient'] + averages['max_medicare_pricing_for_new_patient']) / 2;
+            const avgCoPayNew = (averages['min_copay_for_new_patient'] + averages['max_copay_for_new_patient'])/2;
+            const avgMedicarePriceEstablished = (averages['min_medicare_pricing_for_established_patient'] + averages['max_medicare_pricing_for_established_patient']) / 2;
+            const avgCoPayEstablished = (averages['min_copay_for_established_patient'] + averages['max_copay_for_established_patient'])/2;
+
+            console.log("the average for New Medicare is :  " + avgMedicarePriceNew);
+            console.log("the Co-Pay for New Medicare is :  " + avgCoPayNew);
+            console.log("the average for Established Medicare is :  " + avgMedicarePriceEstablished);
+            console.log("the Co-Pay for New Medicare is :  " + avgCoPayEstablished);
+      
             setShowModal(false);
-          } else {
-            setErrorMessage('Invalid state. Please try again.');
+          } catch (error) {
+            setErrorMessage('An error occurred while processing. Please try again.');
           }
-        
-    }
+        } else {
+          setErrorMessage('Invalid state. Please try again.');
+        }
+      }
 
 
     function handleButtonClick(treatment) {
@@ -208,6 +222,7 @@ function CostEstimator() {
       
 
       function filterDataBasedOnState(stateCode) {
+        return new Promise((resolve, reject) => {
         let sumAndCount = {
             min_medicare_pricing_for_new_patient: {sum: 0, count: 0},
             max_medicare_pricing_for_new_patient: {sum: 0, count: 0},
@@ -279,17 +294,21 @@ function CostEstimator() {
                     }
     
                     console.log("Averages:", averages);
+                    resolve(averages);
                 }
             });
         })
         .catch(error => {
             console.error('Error fetching or parsing CSV:', error);
         });
-    
+        
+        
       
         console.log(normalizedTreatment);
         console.log(filePath);
         console.log(zipRange);
+
+         });
       }
       
 
@@ -384,7 +403,6 @@ function CostEstimator() {
 {showModal && (
       <div className="modal">
         <h6>Cost Estimator</h6>
-        <h5>Procedure: {selectedTreatment} </h5> 
         <h2>Enter your States Abbreviation :</h2>
         <input type="text" placeholder="State" onChange={(e) => setStateCode(e.target.value)} />
         <button onClick={handleConfirm}>
