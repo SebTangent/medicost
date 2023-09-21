@@ -76,9 +76,15 @@ function CostEstimator() {
     const [selectedTreatment, setSelectedTreatment] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
-    const [averageResult, setAverageResult] = useState(0); // to store the calculated average
- 
+    const [procedureError , setProcedureError] = useState(null);
+    const[showResult, setShowResult] = useState(false);
 
+
+    const [avgMedicarePriceNew, setAvgMedicarePriceNew] = useState(0);
+    const [avgCoPayNew, setAvgCoPayNew] = useState(0);
+    const [avgMedicarePriceEstablished, setAvgMedicarePriceEstablished] = useState(0);
+    const [avgCoPayEstablished, setAvgCoPayEstablished] = useState(0);
+  
     
     const stateNameToCode = {
         'Alabama': 'AL',
@@ -149,17 +155,20 @@ function CostEstimator() {
           try {
             const averages = await filterDataBasedOnState(stateCode); // Wait for the averages
             
-            const avgMedicarePriceNew = (averages['min_medicare_pricing_for_new_patient'] + averages['max_medicare_pricing_for_new_patient']) / 2;
-            const avgCoPayNew = (averages['min_copay_for_new_patient'] + averages['max_copay_for_new_patient'])/2;
-            const avgMedicarePriceEstablished = (averages['min_medicare_pricing_for_established_patient'] + averages['max_medicare_pricing_for_established_patient']) / 2;
-            const avgCoPayEstablished = (averages['min_copay_for_established_patient'] + averages['max_copay_for_established_patient'])/2;
+            setAvgMedicarePriceNew((averages['min_medicare_pricing_for_new_patient'] + averages['max_medicare_pricing_for_new_patient']) / 2);
+            setAvgCoPayNew((averages['min_copay_for_new_patient'] + averages['max_copay_for_new_patient'])/2);
+            setAvgMedicarePriceEstablished((averages['min_medicare_pricing_for_established_patient'] + averages['max_medicare_pricing_for_established_patient']) / 2);
+            setAvgCoPayEstablished((averages['min_copay_for_established_patient'] + averages['max_copay_for_established_patient'])/2);
+            
 
-            console.log("the average for New Medicare is :  " + avgMedicarePriceNew);
-            console.log("the Co-Pay for New Medicare is :  " + avgCoPayNew);
-            console.log("the average for Established Medicare is :  " + avgMedicarePriceEstablished);
-            console.log("the Co-Pay for New Medicare is :  " + avgCoPayEstablished);
+            console.log("the average for New Patients with Medicare is :  " + avgMedicarePriceNew);
+            console.log("the Co-Pay for New Patients  Medicare is :  " + avgCoPayNew);
+            console.log("the average for Established Patients with Medicare is :  " + avgMedicarePriceEstablished);
+            console.log("the Co-Pay for New Patients Medicare is :  " + avgCoPayEstablished);
       
             setShowModal(false);
+            setShowResult(true);
+
           } catch (error) {
             setErrorMessage('An error occurred while processing. Please try again.');
           }
@@ -206,18 +215,21 @@ function CostEstimator() {
         const normalizedQuery = query.trim().toLowerCase();
       
         // Store the search query
-        setSearchQuery(query);
+       // setSearchQuery(query);
       
         // Check if query exists in our simulated database, normalize the data
-        if (database.some(procedure => procedure.toLowerCase() === normalizedQuery)) {
-          // Clear any existing error messages
-          setErrorMessage(null);
-          handleButtonClick(query);
-        } else {
-          // If query doesn't exist, set an error message
-          setShowModal(false);
-          setErrorMessage("Procedure not found. Please try again.");
-        }
+      const matchingProcedures = database.filter(procedure => procedure.toLowerCase().includes(normalizedQuery));
+
+if (matchingProcedures.length > 0) {
+    // Clear any existing error messages
+    setProcedureError(null);
+    handleButtonClick(query); // If you intend to use the first matching procedure, replace 'query' with 'matchingProcedures[0]'
+    setShowResult(false);
+} else {
+    // If no matching procedures found, set an error message
+    setShowModal(false);
+    setProcedureError("Procedure not found. Please try again.");
+}
       }
       
 
@@ -246,7 +258,7 @@ function CostEstimator() {
         }
       
         // Open the CSV file based on the state && procedure type then produce the average of each row based on the state zip code
-        const normalizedTreatment = selectedTreatment.toLowerCase();
+        const normalizedTreatment = selectedTreatment.replace(/\s+/g, '').toLowerCase();
         const filePath = `./costdataset/${normalizedTreatment}.csv`; // Use backticks for string interpolation
         
         // Rest of your code
@@ -343,13 +355,13 @@ function CostEstimator() {
         placeholder="Search by Keyword ▶" 
         onChange={(e) => setSearchQuery(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)} />
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {procedureError && <p className="error-message">{procedureError}</p>}
        
     </div>
     <img
         className = "searchImg"
         src ={Search}
-    
+        alt = ""
     />
     <div className = "rows_buttons">
     <div className='button-desc'>
@@ -369,10 +381,10 @@ function CostEstimator() {
 
       <div className="Row2">
       
-        <button className="gridButton" onClick={()=>handleButtonClick("Emergency_Medicine")}>Emergency Medicine</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("EmergencyMedicine")}>Emergency Medicine</button>
         <button className="gridButton" onClick={()=>handleButtonClick("FamilyPractice")}>Family Practice</button>
         <button className="gridButton" onClick={()=>handleButtonClick("Gastroenterology")}>Gastroenterology</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("General_Surgery")}>General Surgery</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("GeneralSurgery")}>General Surgery</button>
         <button className="gridButton" onClick={()=>handleButtonClick("Neurology")}>Neurology</button>
       </div>
     
@@ -403,15 +415,32 @@ function CostEstimator() {
 {showModal && (
       <div className="modal">
         <h6>Cost Estimator</h6>
-        <h2>Enter your States Abbreviation :</h2>
+        <h2>Kindly provide the abbreviation for your state</h2>
+        <h4>Enter your state's abbreviation below (e.g., 'CA' for California):</h4>
         <input type="text" placeholder="State" onChange={(e) => setStateCode(e.target.value)} />
         <button onClick={handleConfirm}>
           Confirm
         </button>
-
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
       </div>
 
   )}
+  {showResult && (
+  <div className="results-modal">
+    <h6>Cost Estimator</h6>
+    <h1>Reuslts: </h1>
+    <h3>New Patients</h3>
+    <div>The average for New Patients with Medicare is: {avgMedicarePriceNew}</div>
+    <div>The Co-Pay for New Patients Medicare is: {avgCoPayEstablished}</div>
+
+    <h3>Established Patients</h3>
+    <div>The average for Established Patients with Medicare is: {avgMedicarePriceEstablished}</div>
+    <div>The Co-Pay for New Patients with Medicare is: {avgCoPayNew}</div>
+    <button onClick={() => setShowResult(false)}>Close</button>
+  </div>
+    )}  
+
+
     </div>
   );
 }
