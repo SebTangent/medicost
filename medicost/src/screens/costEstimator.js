@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import "./costEstimator.css";
 import Nav from "../nav";
@@ -322,7 +322,40 @@ if (matchingProcedures.length > 0) {
 
          });
       }
+      useEffect(() => {
+        // This function will be called whenever showModal changes.
+        if (showModal) {
+            // When the modal is shown
+            document.body.classList.add('no-scroll');
+        } else {
+            // When the modal is hidden
+            document.body.classList.remove('no-scroll');
+        }
+        
+        // Optionally, if you're concerned about clean-up when the component unmounts:
+        return () => {
+            document.body.classList.remove('no-scroll');
+        };
+    }, [showModal]);
+
       
+
+
+    useEffect(() => {
+        // This function will be called whenever showModal changes.
+        if (showResult) {
+            // When the modal is shown
+            document.body.classList.add('no-scroll');
+        } else {
+            // When the modal is hidden
+            document.body.classList.remove('no-scroll');
+        }
+        
+        // Optionally, if you're concerned about clean-up when the component unmounts:
+        return () => {
+            document.body.classList.remove('no-scroll');
+        };
+    }, [showResult]);
 
 
   return (
@@ -355,7 +388,7 @@ if (matchingProcedures.length > 0) {
         placeholder="Search by Keyword ▶" 
         onChange={(e) => setSearchQuery(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)} />
-        {procedureError && <p className="error-message">{procedureError}</p>}
+        {procedureError && <p className="errormessage">{procedureError}</p>}
        
     </div>
     <img
@@ -372,7 +405,7 @@ if (matchingProcedures.length > 0) {
     <div className="Row1">
         
       
-        <button className="gridButton" onClick={()=>handleButtonClick("AddictionMedicine")}>Addiction Medicine</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("Addiction Medicine")}>Addiction Medicine</button>
         <button className="gridButton"onClick={()=>handleButtonClick("Anesthesiology")}>Anesthesiology</button>
         <button className="gridButton"onClick={()=>handleButtonClick("Cardiology")}>Cardiology</button>
         <button className="gridButton"onClick={()=>handleButtonClick("Dentist")}>Dentist</button>
@@ -381,28 +414,28 @@ if (matchingProcedures.length > 0) {
 
       <div className="Row2">
       
-        <button className="gridButton" onClick={()=>handleButtonClick("EmergencyMedicine")}>Emergency Medicine</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("FamilyPractice")}>Family Practice</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("Emergency Medicine")}>Emergency Medicine</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("Family Practice")}>Family Practice</button>
         <button className="gridButton" onClick={()=>handleButtonClick("Gastroenterology")}>Gastroenterology</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("GeneralSurgery")}>General Surgery</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("General Surgery")}>General Surgery</button>
         <button className="gridButton" onClick={()=>handleButtonClick("Neurology")}>Neurology</button>
       </div>
     
       <div className="Row3">
       
-        <button className="gridButton" onClick={()=>handleButtonClick("Pain_Management")}>Pain Management</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("PediatricMedicine")}>Pediatric Medicine</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("PhysicalMedicine")}>Physical Medicine</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("PhysicalTherapist")}>Physical Therapist</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("Pain Management")}>Pain Management</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("Pediatric Medicine")}>Pediatric Medicine</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("Physical Medicine")}>Physical Medicine</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("Physical Therapist")}>Physical Therapist</button>
         <button className="gridButton" onClick={()=>handleButtonClick("Physician")}>Physician</button>
       </div>
 
       <div className="Row4">
       
       <button className="gridButton" onClick={()=>handleButtonClick("Psychiatry")}>Psychiatry</button>
-      <button className="gridButton" onClick={()=>handleButtonClick("ClincalPsychologist")}> Clincal Psychologist</button>
-      <button className="gridButton" onClick={()=>handleButtonClick("SleepMedicine")}>Sleep Medicine</button>
-      <button className="gridButton" onClick={()=>handleButtonClick("SportsMedicine")}>Sports Medicine</button>
+      <button className="gridButton" onClick={()=>handleButtonClick("Clincal Psychologist")}> Clincal Psychologist</button>
+      <button className="gridButton" onClick={()=>handleButtonClick("Sleep Medicine")}>Sleep Medicine</button>
+      <button className="gridButton" onClick={()=>handleButtonClick("Sports Medicine")}>Sports Medicine</button>
       <button className="gridButton"onClick={()=>handleButtonClick("Urology")}>Urology</button>
     </div>
     </div>
@@ -412,33 +445,40 @@ if (matchingProcedures.length > 0) {
         alt = ""
     /> 
 
-{showModal && (
+{showModal && <div className="overlay">
       <div className="modal">
+       
         <h6>Cost Estimator</h6>
         <h2>Kindly provide the abbreviation for your state</h2>
         <h4>Enter your state's abbreviation below (e.g., 'CA' for California):</h4>
-        <input type="text" placeholder="State" onChange={(e) => setStateCode(e.target.value)} />
+        <input type="text" placeholder="State" onChange={(e) => setStateCode(e.target.value.trim())} />
         <button onClick={handleConfirm}>
           Confirm
         </button>
+        <button onClick={() => setShowModal(false)}>Cancel</button>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
+
       </div>
 
-  )}
-  {showResult && (
+  </div> }
+  {showResult && <div className="overlay">
   <div className="results-modal">
     <h6>Cost Estimator</h6>
-    <h1>Reuslts: </h1>
-    <h3>New Patients</h3>
-    <div>The average for New Patients with Medicare is: {avgMedicarePriceNew}</div>
-    <div>The Co-Pay for New Patients Medicare is: {avgCoPayEstablished}</div>
+    <h1>Reuslts for {selectedTreatment} in {stateCode}: </h1>
+    <h5>New Patients</h5>
+    <h4>The average for New Patients with Medicare is: </h4>
+    <h4> ~ ${avgMedicarePriceNew.toFixed(2)}</h4>
+    <h4>The Co-Pay for New Patients Medicare is: </h4>
+    <h4> ~ ${avgCoPayEstablished.toFixed(2)}</h4>
 
-    <h3>Established Patients</h3>
-    <div>The average for Established Patients with Medicare is: {avgMedicarePriceEstablished}</div>
-    <div>The Co-Pay for New Patients with Medicare is: {avgCoPayNew}</div>
-    <button onClick={() => setShowResult(false)}>Close</button>
+    <h5>Established Patients</h5>
+    <h4>The average for Established Patients with Medicare is: </h4>
+    <h4> ~ ${avgMedicarePriceEstablished.toFixed(2)}</h4>
+    <h4>The Co-Pay for New Patients with Medicare is: </h4>
+    <h4> ~ ${avgCoPayNew.toFixed(2)} </h4>
+    <button className= "closeButton" onClick={() => setShowResult(false)}>Close</button>
   </div>
-    )}  
+</div> }  
 
 
     </div>
