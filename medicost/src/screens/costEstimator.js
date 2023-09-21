@@ -9,7 +9,6 @@ import Button from "../images/buttons.jpg"
 
 
 
-
 const stateZipCodeRanges = {
     'AK': { min: 99501, max: 99950 },
     'AL': { min: 35004, max: 36925 },
@@ -64,6 +63,12 @@ const stateZipCodeRanges = {
     'WV': { min: 24701, max: 26886 },
     'WY': { min: 82001, max: 83128 },
   };
+  // Makes Sure the Zip Codes that have 4 have the 0 to start with 
+  Object.keys(stateZipCodeRanges).forEach(state => {
+    stateZipCodeRanges[state].min = stateZipCodeRanges[state].min.toString().padStart(5, '0');
+    stateZipCodeRanges[state].max = stateZipCodeRanges[state].max.toString().padStart(5, '0');
+  });
+  
   
 function CostEstimator() {
     const [showModal, setShowModal] = useState(false);
@@ -203,6 +208,22 @@ function CostEstimator() {
       
 
       function filterDataBasedOnState(stateCode) {
+        let sumAndCount = {
+            min_medicare_pricing_for_new_patient: {sum: 0, count: 0},
+            max_medicare_pricing_for_new_patient: {sum: 0, count: 0},
+            mode_medicare_pricing_for_new_patient: {sum: 0, count: 0},
+            min_copay_for_new_patient: {sum: 0, count: 0},
+            max_copay_for_new_patient: {sum: 0, count: 0},
+            mode_copay_for_new_patient: {sum: 0, count: 0},
+            min_medicare_pricing_for_established_patient: {sum: 0, count: 0},
+            max_medicare_pricing_for_established_patient: {sum: 0, count: 0},
+            mode_medicare_pricing_for_established_patient: {sum: 0, count: 0},
+            min_copay_for_established_patient: {sum: 0, count: 0},
+            max_copay_for_established_patient: {sum: 0, count: 0},
+            mode_copay_for_established_patient: {sum: 0, count: 0}
+
+        }
+
         // Make sure the state code is valid
         if (!isStateValid(stateCode)) { // Assuming you have isStateValid function
           console.error("Invalid State Code Provided");
@@ -211,7 +232,7 @@ function CostEstimator() {
       
         // Open the CSV file based on the state && procedure type then produce the average of each row based on the state zip code
         const normalizedTreatment = selectedTreatment.toLowerCase();
-        const filePath = `/costdataset/${normalizedTreatment}.csv`; // Use backticks for string interpolation
+        const filePath = `./costdataset/${normalizedTreatment}.csv`; // Use backticks for string interpolation
         
         // Rest of your code
         const zipRange = stateZipCodeRanges[stateCode]; // Assuming stateZipCodeRanges is a valid object with state codes as keys
@@ -219,6 +240,52 @@ function CostEstimator() {
         if (!zipRange) {
           console.error("Invalid Zip Range for the provided State Code");
         }
+
+        fetch(filePath)
+        .then(response => response.text())
+        .then(csvString => {
+            Papa.parse(csvString, {
+                header: true,
+                dynamicTyping: true,
+                complete: function(results) {
+                    console.log("Parsed CSV data:", results.data);
+    
+                    // Loop through only the ZIP code range for the state
+                    for (let zipCode = zipRange.min; zipCode <= zipRange.max; zipCode++) {
+                        // Find corresponding data for this ZIP code
+                        const relevantRows = results.data.filter(row => {
+                            const rowZipCode = parseInt(row['zip_code'], 10);
+                            return rowZipCode === zipCode;
+                        });
+    
+                        // Process the relevant rows
+                        relevantRows.forEach(row => {
+                            for (const column in sumAndCount) {
+                                if (row[column] != null) {
+                                    sumAndCount[column].sum += row[column];
+                                    sumAndCount[column].count++;
+                                }
+                            }
+                        });
+                    }
+    
+                    let averages = {};
+                    for (const column in sumAndCount) {
+                        if (sumAndCount[column].count > 0) {
+                            averages[column] = sumAndCount[column].sum / sumAndCount[column].count;
+                        } else {
+                            averages[column] = 0;
+                        }
+                    }
+    
+                    console.log("Averages:", averages);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing CSV:', error);
+        });
+    
       
         console.log(normalizedTreatment);
         console.log(filePath);
@@ -274,7 +341,7 @@ function CostEstimator() {
     <div className="Row1">
         
       
-        <button className="gridButton" onClick={()=>handleButtonClick("Addiction_Medicine")}>Addiction Medicine</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("AddictionMedicine")}>Addiction Medicine</button>
         <button className="gridButton"onClick={()=>handleButtonClick("Anesthesiology")}>Anesthesiology</button>
         <button className="gridButton"onClick={()=>handleButtonClick("Cardiology")}>Cardiology</button>
         <button className="gridButton"onClick={()=>handleButtonClick("Dentist")}>Dentist</button>
@@ -284,7 +351,7 @@ function CostEstimator() {
       <div className="Row2">
       
         <button className="gridButton" onClick={()=>handleButtonClick("Emergency_Medicine")}>Emergency Medicine</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("Family_Practice")}>Family Practice</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("FamilyPractice")}>Family Practice</button>
         <button className="gridButton" onClick={()=>handleButtonClick("Gastroenterology")}>Gastroenterology</button>
         <button className="gridButton" onClick={()=>handleButtonClick("General_Surgery")}>General Surgery</button>
         <button className="gridButton" onClick={()=>handleButtonClick("Neurology")}>Neurology</button>
@@ -293,18 +360,18 @@ function CostEstimator() {
       <div className="Row3">
       
         <button className="gridButton" onClick={()=>handleButtonClick("Pain_Management")}>Pain Management</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("Pediatric_Medicine")}>Pediatric Medicine</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("Physical_Medicine")}>Physical Medicine</button>
-        <button className="gridButton" onClick={()=>handleButtonClick("Physical Therapist")}>Physical Therapist</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("PediatricMedicine")}>Pediatric Medicine</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("PhysicalMedicine")}>Physical Medicine</button>
+        <button className="gridButton" onClick={()=>handleButtonClick("PhysicalTherapist")}>Physical Therapist</button>
         <button className="gridButton" onClick={()=>handleButtonClick("Physician")}>Physician</button>
       </div>
 
       <div className="Row4">
       
       <button className="gridButton" onClick={()=>handleButtonClick("Psychiatry")}>Psychiatry</button>
-      <button className="gridButton" onClick={()=>handleButtonClick("Clincal Psychologist")}> Clincal Psychologist</button>
-      <button className="gridButton" onClick={()=>handleButtonClick("Sleep_Medicine")}>Sleep Medicine</button>
-      <button className="gridButton" onClick={()=>handleButtonClick("Sports_Medicine")}>Sports Medicine</button>
+      <button className="gridButton" onClick={()=>handleButtonClick("ClincalPsychologist")}> Clincal Psychologist</button>
+      <button className="gridButton" onClick={()=>handleButtonClick("SleepMedicine")}>Sleep Medicine</button>
+      <button className="gridButton" onClick={()=>handleButtonClick("SportsMedicine")}>Sports Medicine</button>
       <button className="gridButton"onClick={()=>handleButtonClick("Urology")}>Urology</button>
     </div>
     </div>
