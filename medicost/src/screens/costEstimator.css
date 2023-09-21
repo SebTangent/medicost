@@ -190,3 +190,60 @@
 .closeButton{
     margin-top: 30px;
 }
+
+@media (max-width: 1024px) {
+    .bannerPic {
+      margin-top: 90px;
+      margin-left: 20px;
+      height: 300px;
+      width: 90%;
+    }
+  
+    .bannerDescription {
+      position: relative;
+      margin-top: -170px;
+      top: 0;
+      margin-left: 20px;
+      padding: 40px;
+      margin-bottom: 80px;
+      overflow: hidden;   /* Add this */
+    }
+  
+    .searchBarWrapper {
+      margin-left: 20px;
+      width: 80%;
+      padding: 20px;      /* Reduced padding */
+      margin-top: 310px;
+    }
+  
+    .searchBar {
+      width: 100%;
+    }
+  
+    .searchImg {
+      height: 290px;
+      margin-left: 20px;
+      width: 90%;
+    }
+  
+    .gridButton{
+        font-size: 9px;          /* Slightly larger font for readability */
+        padding: 6px 12px;       /* Increased padding for easier touch interaction */
+        border-radius: 30px;      /* Slightly reduced for aesthetic adjustment on smaller screens */
+        margin: 3px;    
+
+    }
+    .rows_buttons {
+      width: 80%;
+      margin-left: 20px; 
+      margin-top: -140px;
+      padding: 10px;     /* Adjust padding if necessary */
+    }
+  
+    .buttonImage {
+      margin-top: 400px;
+      margin-left: 20px;
+      height: 290px;
+      width: 90%;        /* Adjusted to match the other 90% widths */
+    }
+}

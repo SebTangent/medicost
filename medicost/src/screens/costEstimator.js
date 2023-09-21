@@ -181,6 +181,8 @@ function CostEstimator() {
     function handleButtonClick(treatment) {
         setSelectedTreatment(treatment);
         setShowModal(true);
+        setErrorMessage(null);
+        
       }
 
       function handleSearch(e) {
@@ -396,12 +398,18 @@ if (matchingProcedures.length > 0) {
         src ={Search}
         alt = ""
     />
+      <img 
+        className = "buttonImage"
+        src = {Button}
+        alt = ""
+    /> 
     <div className = "rows_buttons">
     <div className='button-desc'>
     <h5>Cost Estimator</h5>
     <h2>Medical Procedures</h2>
     <h4 >Press any of the buttons to learn more about Procedure Costs </h4>
     </div>
+  
     <div className="Row1">
         
       
@@ -439,11 +447,7 @@ if (matchingProcedures.length > 0) {
       <button className="gridButton"onClick={()=>handleButtonClick("Urology")}>Urology</button>
     </div>
     </div>
-    <img 
-        className = "buttonImage"
-        src = {Button}
-        alt = ""
-    /> 
+
 
 {showModal && <div className="overlay">
       <div className="modal">
