@@ -378,6 +378,12 @@ if (matchingProcedures.length > 0) {
             </div>
         </div>
 
+    <img
+        className = "searchImg"
+        src ={Search}
+        alt = ""
+    />
+
     <div className="searchBarWrapper">
         <div className = "searchTitle">
     
@@ -393,11 +399,7 @@ if (matchingProcedures.length > 0) {
         {procedureError && <p className="errormessage">{procedureError}</p>}
        
     </div>
-    <img
-        className = "searchImg"
-        src ={Search}
-        alt = ""
-    />
+   
       <img 
         className = "buttonImage"
         src = {Button}

@@ -29,7 +29,7 @@
     opacity: 1;
     width:425px;
     padding: 80px;
-    margin-top: 75px;
+    margin-top: -470px;
     border-radius: 40px;
     background-color: rgb(251, 251, 251);
   }
@@ -74,9 +74,9 @@
     border: 2px solid #000000;  /* To match existing border */
     border-radius: 40px;  /* To match existing border-radius */
     color: #000000;  /* Text color */
-    font-size: 14px;  /* Font size */
-    padding: 10px 20px;  /* Padding for medium-sized buttons */
-    margin: 5px;  /* Space between buttons */
+    font-size: 11px;  /* Font size */
+    padding: 8px 17px;  /* Padding for medium-sized buttons */
+    margin: 3px;  /* Space between buttons */
     cursor: pointer;  /* Hand cursor on hover */
 }
 
@@ -85,7 +85,7 @@
     position:absolute;
     flex-direction: column;
     align-items: center;
-    margin-top: 170px;
+    margin-top: -785px;
     opacity: 1;
     background-color: rgb(251, 251, 251);  /* Same as banner and search bar */
     padding: 50px;  /* Adjust as needed */
@@ -191,11 +191,11 @@
     margin-top: 30px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 975px) {
     .bannerPic {
       margin-top: 90px;
       margin-left: 20px;
-      height: 300px;
+      height: 100%;
       width: 90%;
     }
   
@@ -213,7 +213,7 @@
       margin-left: 20px;
       width: 80%;
       padding: 20px;      /* Reduced padding */
-      margin-top: 310px;
+      margin-top: 15px;
     }
   
     .searchBar {
@@ -221,7 +221,7 @@
     }
   
     .searchImg {
-      height: 290px;
+      height: 100%;
       margin-left: 20px;
       width: 90%;
     }
@@ -243,7 +243,7 @@
     .buttonImage {
       margin-top: 400px;
       margin-left: 20px;
-      height: 290px;
+      height: 100%;
       width: 90%;        /* Adjusted to match the other 90% widths */
     }
 }

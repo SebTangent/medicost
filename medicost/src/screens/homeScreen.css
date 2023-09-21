@@ -108,7 +108,7 @@
     width: 290px;
   }
   
-  .comPrice__desc, .location__desc, .CostDesc {
+  .comPrice__desc, .location__desc, .CostDesc { 
     border-radius: 20px;
     padding: 60px;
     background-color: rgb(251, 251, 251);
@@ -140,18 +140,63 @@
   }
 
   
-  @media (max-width: 768px) {
+  @media (max-width: 975px) {
+    .homeScreenImage {
+        margin-top: 70px;
+        margin-left: 20px;
+        padding-bottom: 100px;
+        width: 90%;
+        height: 100%;  /* Adjust to ensure the image scales correctly */
+    }
+
     .homeScreenDescription {
       position: relative;
-      margin: 2rem 1rem;
-      top: 0;
-      left: 0;
+        padding: 40px;
+        top: -290px;       /* Adjusted based on the reduced margin-top of .homeScreenImage */
+        margin-left: 20px;
+        width: 80%;      /* Make it span almost the full width of its container */
     }
-    .homeScreenImage {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      .homeBodyImg1 {
+        margin-top: -110px;     /* Adjusted to fit this image */
+        margin-left: 20px;
+        width: 90%;
+        height: auto;         /* Let the image maintain its aspect ratio */
+    }
+    .homeBody1description{
+      position: relative;  /* Use relative positioning for smaller screens */
+      margin-top: -880px;    /* Add some margin to separate it from the image */
+      padding: 40px;
+      margin-left: 20px;
       width: 80%;
+      margin-bottom: 90px;
     }
+    .serviceImg{
+      margin-top: 780px;
+      margin-left: 20px;
+      height:auto;
+      width:90%;
+    }
+    .serviceDes{
+      margin-left: 55px;
+      width: 40%;
+    
+    } 
+    .homeScreenServices {
+      display: flex;
+      flex-direction: column; /* This makes items flow vertically */
+    }
+    
+    .serviceRow {
+      display: flex;
+      flex-direction: row; /* This makes items flow horizontally in rows */
+      margin-bottom: 20px; /* Add some spacing between rows */
+    }
+   .compPrice{
+    margin-top: 450px;
+   }
+
+   .locations{
+    margin-top:450px;
+   }
+   
   }
-  
