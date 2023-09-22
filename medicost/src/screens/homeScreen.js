@@ -89,7 +89,7 @@ function homeScreen() {
                 <div className ="comPrice__desc">
                 <h5>SERVICES</h5>
                 <h1>Compare Prices </h1>
-                <h5 className ="compDesciption">With our Price Comparison tool, you can compare prices for medical services offered by different healthcare providers. This feature helps you find the most affordable options while ensuring quality care, allowing you to make cost-effective choices for your healthcare needs.</h5>
+                <h5 className ="compDesciption">Explore our State Price Comparison tool – a deep dive into healthcare costs across different states. Empower yourself with insights into varying medical expenses, identifying which states offer the most value. Whether you're considering relocation or simply curious, make informed choices backed by our comprehensive data.</h5>
                 <button className = "compButton"> 
                 Compare Prices →
                 </button>

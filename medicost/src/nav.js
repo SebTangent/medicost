@@ -26,7 +26,7 @@ function Nav() {
           <div className={`nav__links ${showSideNav ? 'show' : ''}`}>
 
             <Link to = "/CostEstimator">Cost Estimator</Link>
-            <a href="#">Compare Prices</a>
+            <Link to = "/ComparePrices">Compare Prices</Link>
             <a href="#">Find Location</a>
             <a href="#">About Us</a>
 
