@@ -247,3 +247,78 @@
       width: 90%;        /* Adjusted to match the other 90% widths */
     }
 }
+@media (min-width: 2400px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+    .bannerPic {
+        margin-top: 90px;
+        margin-left: 1000px;
+        margin-bottom: 100px;
+        height:40%;
+        width: 40%;
+
+      }
+    
+      .bannerDescription {
+        position: relative;
+        padding-top: 10px;
+        margin-top: -300px;
+        top: 0;
+        margin-left: 990px;
+        width: 38.5%;
+        font-size: 17px;
+        text-align: center;
+        padding: 40px;
+        margin-bottom: 80px;
+        overflow: hidden;   /* Add this */
+      }
+      
+    
+      .searchBarWrapper {
+        margin-left: 1000px;
+        width: 39%;
+        padding: 20px;      /* Reduced padding */
+        margin-top: 15px;
+        text-align: center;
+      }
+    
+      .searchBar {
+        width: 40%;
+      }
+    
+      .searchImg {
+        margin-top: 200px;
+        height: 40%;
+        margin-left: 1000px;
+        width: 40%;
+      }
+    
+      .gridButton{
+          font-size: 15px;          /* Slightly larger font for readability */
+          padding: 6px 12px;       /* Increased padding for easier touch interaction */
+          border-radius: 30px;      /* Slightly reduced for aesthetic adjustment on smaller screens */
+          margin: 3px;    
+  
+      }
+      .rows_buttons {
+        width: 39.5%;
+        margin-left: 1000px; 
+        margin-top: -160px;
+        padding: 10px;     /* Adjust padding if necessary */
+      }
+    
+      .buttonImage {
+        margin-top: 550px;
+        margin-left: 1000px;
+        height: 40%;
+        width: 40%;        /* Adjusted to match the other 90% widths */
+      }
+
+
+
+    }
+  

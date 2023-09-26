@@ -1,0 +1,54 @@
+/* comparePrices.css */
+.comparePrices {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .compareBanner, .compareSearch, .compareButton {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .compareHeader, .compareSearchmg {
+    width: 100%;
+    height: auto;
+  }
+  
+  .compareBannerDesc, .compareSearchdesc, .button-desc {
+    padding: 20px;
+  }
+  
+  h2 {
+    color: #1e2a38;
+    font-size: 2em;
+  }
+  
+  h5 {
+    color: #5a6470;
+    font-size: 1em;
+  }
+  
+  .compareSeach input {
+    width: 95%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+  }
+  
+  .gridButton {
+    background-color: #1e2a38;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .gridButton:hover {
+    background-color: #15232d;
+  }

@@ -159,15 +159,15 @@
       .homeBodyImg1 {
         margin-top: -110px;     /* Adjusted to fit this image */
         margin-left: 20px;
-        width: 90%;
-        height: auto;         /* Let the image maintain its aspect ratio */
+        width: 40%;
+        height: 40%;         /* Let the image maintain its aspect ratio */
     }
     .homeBody1description{
       position: relative;  /* Use relative positioning for smaller screens */
       margin-top: -880px;    /* Add some margin to separate it from the image */
       padding: 40px;
       margin-left: 20px;
-      width: 80%;
+      width: 40%;
       margin-bottom: 90px;
     }
     .serviceImg{
@@ -199,4 +199,96 @@
     margin-top:450px;
    }
    
+  }
+
+  @media (min-width: 2400px) {
+
+  
+    /* ... other styles remain the same */
+  
+    .homeScreenImage {
+      margin-top: 90px;
+      margin-bottom: 100px;
+      margin-left:1250px;
+      height: 100%;
+      width: 100%;
+    }
+  
+    .homeScreenDescription {
+      padding-top: 10px;
+      margin-top: 500px;
+      margin-left: 1250px;
+      width: 22.5%;
+      font-size: 17px;
+      text-align: center;
+      padding: 40px;
+      margin-bottom: 80px;
+    }
+  
+    .homeBodyImg1 {
+      margin-top: 400px;     /* Adjusted to fit this image */
+      margin-left: 1000px;
+      width: 40%;
+      height: 40%;         /* Let the image maintain its aspect ratio */
+  }
+  .homeBody1description{
+    position: relative;  /* Use relative positioning for smaller screens */
+    margin-top: -880px;    /* Add some margin to separate it from the image */
+    padding: 40px;
+    margin-left: 1000px;
+    width: 37.5%;
+    height: 40%;
+    margin-bottom: 90px;
+  }
+  .serviceImg{
+    margin-top: 1080px;
+    margin-left: 1000px;
+    height:40%;
+    width:40%;
+  }
+  .serviceDes{
+    margin-left: 1000px;
+    width: 8%;
+  
+  } 
+  .compPrice, .locations, .costEst{
+    margin-left: 200px;
+    margin-right: 80px;
+    border-radius: 20px;
+    padding: 60px;
+    height: 50%;
+    width: 50%;
+  }
+  
+  .comPrice__desc, .location__desc, .CostDesc { 
+    border-radius: 20px;
+    padding: 60px;
+    background-color: rgb(251, 251, 251);
+    margin-left: 50px;
+    height: 53%;
+    width: 53%;
+  }
+  
+  .Pricecomp, .maps-pic, .CostEstimator {
+    margin-top: 300px;
+    height: 65%;
+    width:65%;
+    border-radius: 20px;
+    margin-left: 65px;
+  }
+  
+  .compButton, .locationButton, .CostEstButton {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    font-weight: 400;
+    border-radius: 30px;
+    border: none;
+    font-size: 19px;
+    padding: 15px;
+    width: 200px;
+  }
+
+  
+  
   }
