@@ -140,66 +140,66 @@
   }
 
   
-  @media (max-width: 975px) {
+  @media (max-width: 500px) {
     .homeScreenImage {
-        margin-top: 70px;
-        margin-left: 20px;
-        padding-bottom: 100px;
+        margin-top: 4em;
+        margin-left: 5%;
+        padding-bottom: 5em;
         width: 90%;
-        height: 100%;  /* Adjust to ensure the image scales correctly */
+        height: auto; 
     }
 
     .homeScreenDescription {
-      position: relative;
-        padding: 40px;
-        top: -290px;       /* Adjusted based on the reduced margin-top of .homeScreenImage */
-        margin-left: 20px;
-        width: 80%;      /* Make it span almost the full width of its container */
+        position: relative;
+        padding: 2em;
+        top: 0;
+        margin-left: 5%;
+        width: 90%; 
     }
-      .homeBodyImg1 {
-        margin-top: -110px;     /* Adjusted to fit this image */
-        margin-left: 20px;
-        width: 40%;
-        height: 40%;         /* Let the image maintain its aspect ratio */
-    }
-    .homeBody1description{
-      position: relative;  /* Use relative positioning for smaller screens */
-      margin-top: -880px;    /* Add some margin to separate it from the image */
-      padding: 40px;
-      margin-left: 20px;
-      width: 40%;
-      margin-bottom: 90px;
-    }
-    .serviceImg{
-      margin-top: 780px;
-      margin-left: 20px;
-      height:auto;
-      width:90%;
-    }
-    .serviceDes{
-      margin-left: 55px;
-      width: 40%;
     
-    } 
+    .homeBodyImg1 {
+        margin-top: 2em;
+        margin-left: 5%;
+        width: 90%;
+        height: auto;
+    }
+    
+    .homeBody1description {
+        position: relative;
+        margin-top: 2em;
+        padding: 2em;
+        margin-left: 5%;
+        width: 90%;
+        margin-bottom: 2em;
+    }
+    
+    .serviceImg {
+        margin-top: 4em;
+        margin-left: 5%;
+        height: auto;
+        width: 90%;
+    }
+    
+    .serviceDes {
+        margin-left: 5%;
+        width: 90%;
+    }
+    
     .homeScreenServices {
-      display: flex;
-      flex-direction: column; /* This makes items flow vertically */
+        display: flex;
+        flex-direction: column;
     }
     
     .serviceRow {
-      display: flex;
-      flex-direction: row; /* This makes items flow horizontally in rows */
-      margin-bottom: 20px; /* Add some spacing between rows */
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1em;
     }
-   .compPrice{
-    margin-top: 450px;
-   }
-
-   .locations{
-    margin-top:450px;
-   }
-   
-  }
+    
+    .compPrice, .locations {
+        margin-top: 4em;
+    }
+}
 
   @media (min-width: 2400px) {
 
