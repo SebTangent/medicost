@@ -222,16 +222,16 @@ function CostEstimator() {
         // Check if query exists in our simulated database, normalize the data
       const matchingProcedures = database.filter(procedure => procedure.toLowerCase().includes(normalizedQuery));
 
-if (matchingProcedures.length > 0) {
-    // Clear any existing error messages
-    setProcedureError(null);
-    handleButtonClick(query); // If you intend to use the first matching procedure, replace 'query' with 'matchingProcedures[0]'
-    setShowResult(false);
-} else {
-    // If no matching procedures found, set an error message
-    setShowModal(false);
-    setProcedureError("Procedure not found. Please try again.");
-}
+      if (matchingProcedures.length > 0) {
+          // Clear any existing error messages
+          setProcedureError(null);
+          handleButtonClick(query); // If you intend to use the first matching procedure, replace 'query' with 'matchingProcedures[0]'
+          setShowResult(false);
+      } else {
+          // If no matching procedures found, set an error message
+          setShowModal(false);
+          setProcedureError("Procedure not found. Please try again.");
+      }
       }
       
 
