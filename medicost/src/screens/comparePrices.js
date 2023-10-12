@@ -74,6 +74,16 @@ function ComparePrices() {
     const [searchQuery, setSearchQuery] = useState("");
     const [zipCode, setZipCode] = useState("");
 
+
+
+
+    const [results, setResults] = useState({});
+    const [resultsState1, setResultsState1] = useState(null);
+    const [resultsState2, setResultsState2] = useState(null);
+    const [resultsState3, setResultsState3] = useState(null);
+
+
+
     const stateNameToCode = {
         'Alabama': 'AL',
         'Alaska': 'AK',
@@ -138,6 +148,8 @@ function ComparePrices() {
         return validStateCodes.map(code => code.toLowerCase()).includes(normalizedInput) || 
                 validStateNames.map(name => normalizeInput(name)).includes(normalizedInput);
     };
+   
+
 
 
     function handleButtonClick(treatment) {
@@ -188,10 +200,27 @@ function ComparePrices() {
 
         async function handleConfirmcompare(stateOne, stateTwo, stateThree) {
             try {
+                if(!selectedTreatment){
+                    console.log("treatment was not passed")
+                }
 
-                await processSingleState(stateOne);
-                await processSingleState(stateTwo);
-                await processSingleState(stateThree);
+                console.log(selectedTreatment)
+                console.log(stateOne)
+                console.log(stateTwo)
+                console.log(stateThree)
+
+
+                console.log( stateOne, isStateValid(stateOne) );
+                console.log( stateTwo, isStateValid(stateTwo) );
+                console.log( stateThree, isStateValid(stateThree) );
+
+                await processSingleState(stateOne, selectedTreatment);
+                await processSingleState(stateTwo, selectedTreatment);
+                await processSingleState(stateThree, selectedTreatment);
+
+
+
+              
                 
                 setShowModal(false);
                 setShowResult(true);
@@ -200,14 +229,22 @@ function ComparePrices() {
             }
         }
 
+        function setResultFunction(newResult) {
+            setResults(prevResults => ({
+                ...prevResults,  // This spreads the existing state (previous results)
+                ...newResult     // This spreads and merges the new results into the state
+            }));
+        }
+        
 
-
-        async function processSingleState(stateInput) {
+        async function processSingleState(stateInput , treatment) {
             if (!isStateValid(stateInput)) {
                 console.error('Invalid state provided');
                 setErrorMessage('Invalid state. Please try again.');
                 return null;
             }
+
+           
         
             const stateCode = stateNameToCode[stateInput] || stateInput;
             const averages = await filterDataByState(stateCode); 
@@ -217,6 +254,27 @@ function ComparePrices() {
             const avgMedicarePriceEstablished = (averages['min_medicare_pricing_for_established_patient'] + averages['max_medicare_pricing_for_established_patient']) / 2;
             const avgCoPayEstablished = (averages['min_copay_for_established_patient'] + averages['max_copay_for_established_patient']) / 2;
             
+
+            let resultForState = {
+                [stateCode]: {
+                    avgMedicarePriceNew,
+                    avgCoPayNew,
+                    avgMedicarePriceEstablished,
+                    avgCoPayEstablished
+                }
+            };
+
+
+            setSelectedTreatment(treatment);
+            setStateCode(stateCode);
+            setResultFunction(resultForState);
+            setShowResult(true);
+
+
+
+
+
+
             console.log(`${stateCode} Averages:`);
             console.log("Avg for New Patients with Medicare:", avgMedicarePriceNew);
             console.log("Co-Pay for New Patients Medicare:", avgCoPayNew);
@@ -274,18 +332,27 @@ function ComparePrices() {
                     mode_copay_for_established_patient: {sum: 0, count: 0}
                 }
             }
-            
-            if (!isStateValid(stateCode)) {
+            console.log("State Code" , stateCode, "isStateValid : " , isStateValid(stateCode));
+            console.log("Zip Code ", zipCode , "isStateValid: ", isStateValid(zipCode));
+        
+
+
+
+            if (!isStateValid(zipCode)) {
+    
                 console.error("Invalid State Code Provided");
                 reject(new Error("Invalid State Code"));
                 return;
             }
+
     
             const normalizedTreatment = selectedTreatment.replace(/\s+/g, '').toLowerCase();
             const filePath = `./costdataset/${normalizedTreatment}.csv`;
     
-            const zipRange = stateZipCodeRanges[stateCode];
+            const zipRange = stateZipCodeRanges[zipCode];
+            
     
+            console.log("Zip Range: " , zipRange) 
             if (!zipRange) {
                 console.error("Invalid Zip Range for the provided State Code");
                 reject(new Error("Invalid Zip Range"));
@@ -443,6 +510,38 @@ function ComparePrices() {
           </div>
         </div>
       )}
+      {showResult && (
+            <div className="overlay">
+                <div className="results-modal">
+                    <h6>Cost Estimator</h6>
+                    <h1>Results for {selectedTreatment}:</h1>
+
+                    {Object.entries(results).map(([currentState, data]) => (
+                        <div key={currentState}>
+                            <h2>{currentState}:</h2>
+                            
+                            <h5>New Patients</h5>
+                            <h4>The average for New Patients with Medicare is:</h4>
+                            <h4> ~ ${data.avgMedicarePriceNew.toFixed(2)}</h4>
+                            <h4>The Co-Pay for New Patients Medicare is:</h4>
+                            <h4> ~ ${data.avgCoPayNew.toFixed(2)}</h4>
+
+                            <h5>Established Patients</h5>
+                            <h4>The average for Established Patients with Medicare is:</h4>
+                            <h4> ~ ${data.avgMedicarePriceEstablished.toFixed(2)}</h4>
+                            <h4>The Co-Pay for Established Patients with Medicare is:</h4>
+                            <h4> ~ ${data.avgCoPayEstablished.toFixed(2)}</h4>
+                        </div>
+                    ))}
+
+                    <button className="closeButton" onClick={() => setShowResult(false)}>Close</button>
+                </div>
+            </div>
+        )}
+
+    
+
+
     </div>
 
   );
