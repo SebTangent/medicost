@@ -248,6 +248,10 @@ function ComparePrices() {
         
             const stateCode = stateNameToCode[stateInput] || stateInput;
             const averages = await filterDataByState(stateCode); 
+            console.log("THIS IS THE STATECODE : " , stateCode);
+    
+
+            console.log('Averages from filterDataByState:', averages);
                 
             const avgMedicarePriceNew = (averages['min_medicare_pricing_for_new_patient'] + averages['max_medicare_pricing_for_new_patient']) / 2;
             const avgCoPayNew = (averages['min_copay_for_new_patient'] + averages['max_copay_for_new_patient']) / 2;
@@ -348,9 +352,11 @@ function ComparePrices() {
     
             const normalizedTreatment = selectedTreatment.replace(/\s+/g, '').toLowerCase();
             const filePath = `./costdataset/${normalizedTreatment}.csv`;
+
+            console.log("THIS IS THE FILEPATH: ", filePath);
     
             const zipRange = stateZipCodeRanges[zipCode];
-            
+
     
             console.log("Zip Range: " , zipRange) 
             if (!zipRange) {
